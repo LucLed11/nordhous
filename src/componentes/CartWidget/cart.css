@@ -1,6 +1,12 @@
-.color {
+.colorcart {
     background-color: white;
-    border-radius: 15px;
+    width: 60px;
+    height: 40px;
     box-shadow: 0 0 5px white;
-    margin: 10px;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+.cartnumber {
+    font-size: 150%;
 }

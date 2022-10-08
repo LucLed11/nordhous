@@ -12,10 +12,10 @@ const Navbar = () => {
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div className='navbar-nav'>
                     
-                        <a class="nav-item nav-link" href="./src/App.js">Home</a>
-                        <a class="nav-item nav-link" href="./paginas/Products.js">Products</a>
-                        <a class="nav-item nav-link" href="./paginas/AboutUs.js">About Us</a>
-                        <a class="nav-item nav-link" href="./paginas/ContacUs.js">Contact Us</a>
+                        <a className="nav-item nav-link" href="./src/App.js">Home</a>
+                        <a className="nav-item nav-link" href="./paginas/Products.js">Products</a>
+                        <a className="nav-item nav-link" href="./paginas/AboutUs.js">About Us</a>
+                        <a className="nav-item nav-link" href="./paginas/ContacUs.js">Contact Us</a>
 
                 </div>
             </div>
