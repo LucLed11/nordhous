@@ -1,14 +1,12 @@
+import './ItemList.css'
+import Item from '../Item/Item'
 
-const ItemList = () => {
-
-    return (
-        <div>
-            <h1>
-                Aca Van Los Productos
-            </h1>
-        </div>
+const ItemList = ({products, setPage }) => {
+    return(
+        <div className='ListGroup' onClick={() => console.log('CLick en ItemList')}>
+            {products.map(prod => <Item key={prod.id} {...prod} setPage={setPage}/>)}
+        </div>    
     )
 }
-
 
 export default ItemList
