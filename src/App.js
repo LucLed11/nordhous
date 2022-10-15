@@ -15,7 +15,7 @@ function App() {
     <div className="App">
         <Navbar />
         <Logo />
-        <ItemListContainer/>
+        <ItemListContainer />
         <Contador OnAdd={handleOnAdd}/>
    </div>
   );

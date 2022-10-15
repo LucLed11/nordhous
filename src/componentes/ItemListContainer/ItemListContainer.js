@@ -1,28 +1,23 @@
 
 import './ItemListContainer.css'
 import { useState, useEffect } from 'react'
-import { getProducts, getProductsByCategory } from "../../asynMock"
+import { getProducts } from "../../asynMock"
 import ItemList from './ItemList/ItemList'
 
 const ItemListContainer = ({ greeting  }) => {
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(true)
 
-    const { categoryId } = 
-
     useEffect(() => {
-        setLoading(true)
-
-        const asyncFunction = categoryId ? getProductsByCategory : getProducts
-       
-        asyncFunction(categoryId).then(response => {
-            setProducts(response)
-        }).catch(error => {
-            console.log(error)
-        }).finally(() => {
-            setLoading(false)
-        })  
-    }, [])
+    setLoading(true)
+    
+    getProducts().then(response => {
+        console.log(response)
+        setProducts(response)
+    }).finally(() => {
+        setLoading(false)
+    })
+}, [])
 
     if(loading) {
         return <h3>Cargando...</h3>
