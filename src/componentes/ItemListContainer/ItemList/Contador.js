@@ -1,17 +1,17 @@
 import { useState } from "react"
 
-const Contador =  ({OnAdd}) => {
+const Contador =  ({stock = 0 , initial = 1, OnAdd}) => {
 
-    const [count, setCount] = useState(0)
+    const [count, setCount] = useState(initial)
     
         const restar = () => {
-            if(count > 0) {
+            if(count > 1) {
                 setCount(count - 1)
             }
         }
     
         const sumar = () => {
-            if(count < 5) {
+            if(count < stock) {
                 setCount(count + 1)
             }
         }  
@@ -25,7 +25,7 @@ const Contador =  ({OnAdd}) => {
         <span> </span>
         <button type="button" className="btn btn-outline-dark" onClick={sumar}> &nbsp;+&nbsp; </button>
         <br></br>
-        <button type="button" className="btn btn-outline-dark" onClick={OnAdd}>Agregar al Carrito</button>
+        <button type="button" className="btn btn-outline-dark" onClick={() => OnAdd(count)}>Agregar al Carrito</button>
         </h2>
     )
 }

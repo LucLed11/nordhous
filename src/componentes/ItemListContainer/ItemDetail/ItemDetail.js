@@ -1,40 +1,28 @@
-
 import './ItemDetail.css'
-import ItemCount from '../ItemCount/ItemCount'
+import Contador from '../ItemList/Contador.js'
 
-const ItemDetail = ({ id, name, img, category, description, price, stock }) => {
-    const handleOnAdd = (quantity) => {
+const ItemDetail = ({ id, img, name, category, description, price, stock }) => {
+    const handleOnAdd = (count) => {
         const productToAdd = {
-            id, name, price, quantity
+            id, name, price, count
         }
         console.log(productToAdd)
     }
 
     return (
-        <article className="CardItem">
-            <header className="Header">
-                <h2 className="ItemHeader">
-                    {name}
-                </h2>
-            </header>
-            <picture>
-                <img src={img} alt={name} className="ItemImg"/>
-            </picture>
-            <section>
-                <p className="Info">
-                    Categoria: {category}
-                </p>
-                <p className="Info">
-                    Descripción: {description}
-                </p>
-                <p className="Info">
-                    Precio: {price}
-                </p>
-            </section>           
-            <footer className='ItemFooter'>
-                <ItemCount onAdd={handleOnAdd} stock={stock} />
-            </footer>
-        </article>
+        <div className="card border-dark mb-3" style={{maxWidth:500}}>
+        <img className="card-img-top" src={img} alt='name'></img>
+        <div className="card-header"><h3>{name}</h3></div>
+            <br></br>
+            <h4 className="card-title">${price}</h4>
+            <br></br>
+            <p className="card-text">{category}</p>
+            <br></br>
+            <p className="card-text">{description}</p>
+            <br></br>
+            <Contador onAdd={handleOnAdd} stock={stock}/>
+            <br></br>
+        </div>
     )
 }
 

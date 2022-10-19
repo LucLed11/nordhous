@@ -1,22 +1,22 @@
 import React from 'react';
 import './App.css';
-import Logo from './componentes/logo';
 import Navbar from './componentes/navbar/navbar';
 import ItemListContainer from './componentes/ItemListContainer/ItemListContainer';
-import Contador from './componentes/ItemListContainer/ItemList/Contador';
+import ItemDetailContainer from './componentes/ItemListContainer/ItemDetailContainer/ItemDetailContainer';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 function App() {
-
-  const handleOnAdd = () => {
-    console.log('Se agrego al Carrito')
-  }
   
   return (
     <div className="App">
+        <BrowserRouter>
         <Navbar />
-        <Logo />
-        <ItemListContainer />
-        <Contador OnAdd={handleOnAdd}/>
+        <Routes>
+            <Route path='/' element={<ItemListContainer />}/>  
+            <Route path='/detail/:productId' element={<ItemDetailContainer />}/> 
+            <Route path='*' element={<h1>404 NOT FOUND</h1>} />
+        </Routes>
+        </BrowserRouter>
    </div>
   );
 }

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { getProducts } from "../../asynMock"
 import ItemList from './ItemList/ItemList'
 
-const ItemListContainer = ({ greeting  }) => {
+const ItemListContainer = ({ greeting }) => {
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(true)
 
@@ -20,13 +20,16 @@ const ItemListContainer = ({ greeting  }) => {
 }, [])
 
     if(loading) {
-        return <h3>Cargando...</h3>
+        return  <h3><br></br>Cargando...</h3>
     }
 
     return (
         <div onClick={() => console.log('click en itemlistcontainer')}>
-            <h2>Lista de Productos</h2>
+            <br></br>
+            <h2 className='display-4'>Lista de Productos</h2>
+            <br></br>
             <ItemList products={products}/>
+            <br></br>
         </div>
     )
 }
