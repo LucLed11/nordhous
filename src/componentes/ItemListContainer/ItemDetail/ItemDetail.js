@@ -10,6 +10,8 @@ const ItemDetail = ({ id, img, name, category, description, price, stock }) => {
     }
 
     return (
+        <div>
+        <br></br>
         <div className="card border-dark mb-3" style={{maxWidth:500}}>
         <img className="card-img-top" src={img} alt='name'></img>
         <div className="card-header"><h3>{name}</h3></div>
@@ -22,6 +24,7 @@ const ItemDetail = ({ id, img, name, category, description, price, stock }) => {
             <br></br>
             <Contador onAdd={handleOnAdd} stock={stock}/>
             <br></br>
+        </div>
         </div>
     )
 }
