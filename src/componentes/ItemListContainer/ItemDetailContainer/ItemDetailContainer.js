@@ -2,14 +2,16 @@ import './ItemDetailContainer.css'
 import { useState, useEffect } from 'react'
 import { getProductById } from '../../../asynMock'
 import ItemDetail from '../ItemDetail/ItemDetail'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
-const ItemDetailContainer = () => {
+const ItemDetailContainer = ({ setCart }) => {
     const [product, setProduct] = useState()
     const [loading, setLoading] = useState(true)
 
     const { productId } = useParams()
-    console.log(productId)
+
+    const navigate = useNavigate()
+
 
     useEffect(() => {
         getProductById(productId).then(response => {
@@ -25,6 +27,7 @@ const ItemDetailContainer = () => {
 
     return(
         <div className='ItemDetailContainer' >
+            <button onClick={() => navigate(-1)}>Back</button>
             <ItemDetail  {...product} />
         </div>
     )

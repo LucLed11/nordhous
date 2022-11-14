@@ -1,12 +1,21 @@
 import './ItemDetail.css'
 import Contador from '../ItemList/Contador.js'
+import { useContext } from 'react'
+import { CartContext } from '../../../context/CartContext'
+import { Link } from 'react-router-dom'
 
 const ItemDetail = ({ id, img, name, category, description, price, stock }) => {
-    const handleOnAdd = (count) => {
+    
+    const { addItem, isInCart } = useContext(CartContext)
+    
+    const handleOnAdd = (quantity) => {
         const productToAdd = {
-            id, name, price, count
+            id, name, price, quantity
         }
-        console.log(productToAdd)
+
+        addItem(productToAdd)
+
+        //console.log(productToAdd)
     }
 
     return (
@@ -22,7 +31,14 @@ const ItemDetail = ({ id, img, name, category, description, price, stock }) => {
             <br></br>
             <p className="card-text">{description}</p>
             <br></br>
-            <Contador onAdd={handleOnAdd} stock={stock}/>
+            <footer className='ItemFooter'>
+                {
+                    !isInCart(id) 
+                        ? <Contador onAdd={handleOnAdd} stock={stock} />
+                        : <Link to='/cart' className='Option'>Finalizar compra</Link>
+                }
+                
+            </footer>
             <br></br>
         </div>
         </div>

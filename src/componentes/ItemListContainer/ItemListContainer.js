@@ -17,19 +17,31 @@ const ItemListContainer = ({ greeting }) => {
     const asyncFunction = categoryId ? getProductsByCategory : getProducts
     
     asyncFunction(categoryId).then(response => {
-        console.log(response)
         setProducts(response)
+    }).catch(error => {
+        console.log(error)
     }).finally(() => {
         setLoading(false)
     })
 }, [categoryId])
+
+    //useEffect(() => {
+    //const onResize = (e) => console.log(e)
+
+    //window.addEventListener('Resize', onResize)
+
+    //return () => { 
+    //    window.removeEventListener('Resize', onResize)
+    //    console.log('Remove Resize')
+    //    }
+    //}, [])
 
     if(loading) {
         return  <h3><br></br>Cargando...</h3>
     }
 
     return (
-        <div onClick={() => console.log('click en itemlistcontainer')}>
+        <div>
             <br></br>
             <h2 className='display-4'>Lista de Productos</h2>
             <br></br>
