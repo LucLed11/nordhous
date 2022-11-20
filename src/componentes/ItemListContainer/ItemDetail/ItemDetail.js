@@ -3,20 +3,26 @@ import Contador from '../ItemList/Contador.js'
 import { useContext } from 'react'
 import { CartContext } from '../../../context/CartContext'
 import { Link } from 'react-router-dom'
+import { NotificationContext } from '../../../notification/NotificationService'
 
 const ItemDetail = ({ id, img, name, category, description, price, stock }) => {
     
-    const { addItem, isInCart } = useContext(CartContext)
+    const { addItem, isInCart, getProductQuantity } = useContext(CartContext)
+    const { setNotification } = useContext(NotificationContext)
     
     const handleOnAdd = (quantity) => {
+
         const productToAdd = {
             id, name, price, quantity
         }
 
-        addItem(productToAdd)
+        addItem(productToAdd, quantity)
+        setNotification('success', `Producto Agregado ${quantity} ${name}`)
 
         //console.log(productToAdd)
     }
+
+    const quantityAdded = getProductQuantity(id)
 
     return (
         <div>
@@ -32,10 +38,9 @@ const ItemDetail = ({ id, img, name, category, description, price, stock }) => {
             <p className="card-text">{description}</p>
             <br></br>
             <footer className='ItemFooter'>
+            { stock !== 0 ? <Contador onAdd={handleOnAdd} stock={stock} initial={quantityAdded} />: <p>No hay stock</p>}
                 {
-                    !isInCart(id) 
-                        ? <Contador onAdd={handleOnAdd} stock={stock} />
-                        : <Link to='/cart' className='Option'>Finalizar compra</Link>
+                    !isInCart(id) && <Link to='/Cart' type="button" className="btn btn-secondary">Finalizar compra</Link>
                 }
                 
             </footer>

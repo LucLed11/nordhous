@@ -1,9 +1,10 @@
 
 import './ItemListContainer.css'
 import { useState, useEffect } from 'react'
-import { getProducts , getProductsByCategory } from "../../asynMock"
 import ItemList from './ItemList/ItemList'
 import { useParams } from 'react-router-dom'
+import { getDocs, collection, query, where } from 'firebase/firestore'
+import { db } from '../../services/firebase'
 
 const ItemListContainer = ({ greeting }) => {
     const [products, setProducts] = useState([])
@@ -12,29 +13,31 @@ const ItemListContainer = ({ greeting }) => {
     const { categoryId } = useParams()
 
     useEffect(() => {
-    setLoading(true)
+        document.title = 'Listado de productos'
+    }, [])
 
-    const asyncFunction = categoryId ? getProductsByCategory : getProducts
-    
-    asyncFunction(categoryId).then(response => {
-        setProducts(response)
-    }).catch(error => {
-        console.log(error)
-    }).finally(() => {
-        setLoading(false)
-    })
-}, [categoryId])
+    useEffect(() => {
+        setLoading(true)
+       
+        const collectionRef = categoryId 
+            ? query(collection(db, 'products'), where('category', '==', categoryId))
+            : collection(db, 'products')
 
-    //useEffect(() => {
-    //const onResize = (e) => console.log(e)
-
-    //window.addEventListener('Resize', onResize)
-
-    //return () => { 
-    //    window.removeEventListener('Resize', onResize)
-    //    console.log('Remove Resize')
-    //    }
-    //}, [])
+        getDocs(collectionRef)
+            .then(response => {
+                const productsAdapted = response.docs.map(doc => {
+                    const data = doc.data()
+                    return { id: doc.id, ...data }
+                })
+                setProducts(productsAdapted)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+            .finally(() => {
+                setLoading(false)
+            })  
+    }, [categoryId])
 
     if(loading) {
         return  <h3><br></br>Cargando...</h3>
@@ -43,6 +46,7 @@ const ItemListContainer = ({ greeting }) => {
     return (
         <div>
             <br></br>
+            {greeting}
             <h2 className='display-4'>Lista de Productos</h2>
             <br></br>
             <ItemList products={products}/>

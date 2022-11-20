@@ -20,11 +20,25 @@ export const CartProvider = ({children}) => {
         setTotal(total)
       }, [cart]) //eslint-disable-line
 
-    const addItem = (productToAdd) => {
+      const addItem = (productToAdd, quantity) => {
         if(!isInCart(productToAdd.id)) {
+            productToAdd.quantity = quantity
             setCart([...cart, productToAdd])
         } else {
-        console.log('ya esta en el carrito')
+            const cartUpdated = cart.map(prod => {
+                if(prod.id === productToAdd.id) {
+                    const productUpdated = {
+                        ...prod,
+                        quantity: quantity
+                    }
+
+                    return productUpdated
+                } else {
+                    return prod
+                }
+            })
+
+            setCart(cartUpdated)
         }
     }
 
@@ -57,8 +71,18 @@ export const CartProvider = ({children}) => {
         return accu
     }
 
+    const clearCart = () => {
+        setCart([])
+    }
+
+    const getProductQuantity = (id) => {
+        const product = cart.find(prod => prod.id === id)
+
+        return product?.quantity
+    }
+
     return (
-        <CartContext.Provider value={{ cart, addItem, removeItem, isInCart, totalQuantity, total}}>
+        <CartContext.Provider value={{ cart, addItem, removeItem, isInCart, totalQuantity, total, clearCart, getProductQuantity }}>
             {children}
         </CartContext.Provider>
     )
